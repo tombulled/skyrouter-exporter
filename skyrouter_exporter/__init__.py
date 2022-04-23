@@ -1,3 +1,4 @@
+import os
 import typing
 
 import fastapi
@@ -6,7 +7,13 @@ import prometheus_client
 import skyrouter
 import skyrouter.models
 
-router: skyrouter.SkyRouter = skyrouter.SkyRouter(host="...", password="...")
+HOST: typing.Optional[str] = os.getenv("HOST")
+USERNAME: typing.Optional[str] = os.getenv("USERNAME")
+PASSWORD: typing.Optional[str] = os.getenv("PASSWORD")
+
+router: skyrouter.SkyRouter = skyrouter.SkyRouter(
+    host=HOST, username=USERNAME, password=PASSWORD
+)
 
 registry: prometheus_client.CollectorRegistry = prometheus_client.CollectorRegistry()
 
